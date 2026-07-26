@@ -10,3 +10,13 @@ wget -r -np -k https://web.archive.org/web/20190421123805/http://www.spacecraftr
 - document in plan.md
 
 
+====
+Think about the requirements here...
+
+As a web designer, recreate the website using the content, pictures, and files in /workspaces/spacecraftreplicas/recovered_site
+- try to keep a simple website, but modern
+- we want to make sure that text content from website gets perserved
+- try to keep the navigation from the original website
+- feel free to copy and organize files from recovered_site to keep things well organized
+
+Document plan in plan2.md
