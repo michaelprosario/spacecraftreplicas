@@ -31,18 +31,33 @@ def extract_text_blocks(filepath):
                      lambda m: f'href="{m.group(1).replace(" ", "_")}"', content, flags=re.IGNORECASE)
 
     soup = BeautifulSoup(content, 'html.parser')
-    for s in soup(['script', 'style', 'nav', 'header', 'footer']):
-        s.decompose()
+    
+    # Decompose header, footer, nav, sidebar, and widget elements
+    for tag in soup(['script', 'style', 'nav', 'header', 'footer', 'aside']):
+        tag.decompose()
+        
+    for widget in soup.find_all(['div', 'ul', 'section'], class_=re.compile(r'menu|widget|sidebar|nav|branding|header|footer', re.I)):
+        widget.decompose()
+        
+    for widget in soup.find_all(['div', 'ul', 'section'], id=re.compile(r'menu|widget|sidebar|nav|header|footer', re.I)):
+        widget.decompose()
+
+    # Locate main entry content container
+    entry = soup.find(['article', 'div', 'main'], class_=re.compile(r'entry-content|post-content|main-content|type-page|type-post', re.I))
+    if not entry:
+        entry = soup.find('body') or soup
 
     paragraphs = []
-    for elem in soup.find_all(['p', 'h1', 'h2', 'h3', 'li', 'div']):
+    for elem in entry.find_all(['p', 'h2', 'h3', 'h4', 'li']):
         txt = elem.get_text().strip()
-        if txt and len(txt) > 20 and not txt.startswith('Skip to') and not 'Spacecraft Replicas Flight' in txt:
-            if txt not in paragraphs:
-                paragraphs.append(txt)
+        txt = re.sub(r'\s+', ' ', txt)
+        if txt and len(txt) > 10:
+            if not any(nav_kw in txt for nav_kw in ['Skip to content', 'Home Gallery', 'CollectSpace Mercury', 'Spacecraft Replicas Flight', 'Updated 12/20/2008']):
+                if txt not in paragraphs:
+                    paragraphs.append(txt)
 
     imgs = []
-    for img in soup.find_all('img'):
+    for img in entry.find_all('img'):
         src = img.get('src', '')
         if src:
             img_name = os.path.basename(src.split('?')[0]).replace(' ', '_')
@@ -50,7 +65,6 @@ def extract_text_blocks(filepath):
                 imgs.append(img_name)
 
     clean_html = "\n\n".join([f"<p>{p}</p>" for p in paragraphs])
-    # Ensure any residual PDF links inside paragraph text replace spaces with underscores
     clean_html = re.sub(r'(/pdfs/[^"\s>]+)', lambda m: m.group(1).replace(' ', '_'), clean_html)
     return clean_html, imgs
 
@@ -94,7 +108,7 @@ import MainLayout from '{layout_import}';
     os.makedirs(os.path.dirname(fpath), exist_ok=True)
     with open(fpath, 'w', encoding='utf-8') as f:
         f.write(astro_code)
-    print(f"Created Astro Route: src/pages/{target_route}")
+    print(f"Created Clean Astro Route: src/pages/{target_route}")
 
 routes = [
     ('about.astro', 'About Andy & Spacecraft Replicas', 'About', 'andy.html'),
@@ -136,6 +150,7 @@ const pageCount = 125;
 
 <MainLayout title="Spacecraft Replicas Historical Archive">
   <div style="text-align: center; margin: 3rem auto 2rem auto; max-width: 800px;">
+    <span class="badge">Astro Rebuilt Archive</span>
     <h1 style="font-size: 3.2rem; margin: 1rem 0; background: linear-gradient(135deg, #fff 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
       Flight makes the imagination limitless...
     </h1>
