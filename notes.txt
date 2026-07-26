@@ -1,0 +1,12 @@
+wget -r -np -k https://web.archive.org/web/20190421123805/http://www.spacecraftreplicas.com/
+
+===
+
+- need to rebuild a website from a website machine archive
+- need to recover all elements from here: https://web.archive.org/web/*/www.spacecraftreplicas.com*
+- we need to recover the website pages, images, pdfs and files
+- we want to gather the parts so that we can rebuild it
+- think about how we might accomplish this task.
+- document in plan.md
+
+
