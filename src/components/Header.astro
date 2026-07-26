@@ -1,0 +1,42 @@
+---
+import Navigation from './Navigation.astro';
+import Logo from './Logo.astro';
+---
+<header>
+  <div class="nav-wrapper">
+    <Logo />
+    
+    <button class="mobile-toggle" id="menuBtn" aria-label="Toggle Menu">
+      <span id="menuIcon">☰</span>
+    </button>
+
+    <Navigation />
+  </div>
+</header>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const menuIcon = document.getElementById('menuIcon');
+  const navMenu = document.querySelector('.nav-menu');
+
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = navMenu?.classList.toggle('open');
+    if (menuIcon) {
+      menuIcon.textContent = isOpen ? '✕' : '☰';
+    }
+  });
+
+  // Mobile dropdown toggle logic
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      if (window.innerWidth <= 900) {
+        const link = item.querySelector('.nav-link');
+        const dropdown = item.querySelector('.dropdown');
+        if (dropdown && (e.target === link || link?.contains(e.target as Node))) {
+          e.preventDefault();
+          item.classList.toggle('active');
+        }
+      }
+    });
+  });
+</script>

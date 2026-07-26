@@ -1,0 +1,62 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const pdfCount = 112;
+const imgCount = 152;
+const pageCount = 125;
+---
+
+<MainLayout title="Spacecraft Replicas Historical Archive">
+  <div style="text-align: center; margin: 3rem auto 2rem auto; max-width: 800px;">
+    <h1 style="font-size: 3.2rem; margin: 1rem 0; background: linear-gradient(135deg, #fff 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+      Flight makes the imagination limitless...
+    </h1>
+    <p style="font-size: 1.2rem; color: var(--text-muted);">
+      Historical restoration of SpacecraftReplicas.com. Featuring scale spacecraft models, blueprints, paper craft templates, Project Mercury capsules, and Space Shuttle builds.
+    </p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 3rem 0;">
+    <div class="card" style="text-align: center;">
+      <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); font-family: 'Outfit';">{pdfCount}</div>
+      <div style="color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">PDF Blueprints</div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); font-family: 'Outfit';">{imgCount}</div>
+      <div style="color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">Restored Photos</div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); font-family: 'Outfit';">{pageCount}</div>
+      <div style="color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">Archived Pages</div>
+    </div>
+  </div>
+
+  <section style="margin-top: 4rem;">
+    <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">🚀 Explore Replica Projects</h2>
+    <div class="grid-cards">
+      <a href="/mercury/main-structure" class="card" style="text-decoration: none;">
+        <span class="badge">Project Mercury</span>
+        <h3 style="margin: 0.5rem 0;">Mercury Capsule Build</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Full scale & model build guides for heat shield, shingles, periscope, and instrument panels.</p>
+      </a>
+
+      <a href="/paper-models/blueprints" class="card" style="text-decoration: none;">
+        <span class="badge">Blueprints & Downloads</span>
+        <h3 style="margin: 0.5rem 0;">112 PDF Blueprints</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Downloadable PDF templates, schematics, and instructional paper craft manuals.</p>
+      </a>
+
+      <a href="/shuttle/1-40-shuttle" class="card" style="text-decoration: none;">
+        <span class="badge">Space Shuttle</span>
+        <h3 style="margin: 0.5rem 0;">1:40 Scale Space Shuttle</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Detailed 1:40 scale model construction and X-37 / X-40A glide lander project notes.</p>
+      </a>
+
+      <a href="/community/cnc-router" class="card" style="text-decoration: none;">
+        <span class="badge">Special Projects</span>
+        <h3 style="margin: 0.5rem 0;">CNC Router & Aviation</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Custom CNC router fabrication and homebuilt aircraft construction logs.</p>
+      </a>
+    </div>
+  </section>
+</MainLayout>
